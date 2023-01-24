@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Case Builder</title>
+    <style>
+      /* CSS styles for the layout and design */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #333;
+        color: white;
+        padding: 1em;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+      }
+      #test-case-builder {
+        margin: 2em;
+      }
+      #test-case-builder label {
+        display: block;
+        margin-bottom: 0.5em;
+      }
+      #test-case-builder input[type="text"], #test-case-builder textarea {
+        width: 100%;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      #test-case-builder textarea {
+        height: 100px;
+      }
+      #test-case-builder select {
+        width: 100%;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      #test-case-builder button {
+        padding: 0.5em 1em;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 1em;
+      }
+      #test-cases {
+        margin: 2em;
+        background-color: #f1f1f1;
+        padding: 1em;
+        border-radius: 5px;
+      }
+      #test-cases table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      #test-cases th, #test-cases td {
+        border: 1px solid #ccc;
+        padding: 0.5em;
+      }
+      #test-cases th {
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Test Case Builder</h1>
+    </header>
+    <div id="test-case-builder">
+      <label for="test-case-id">
+      <label for="test-case-id">Test Case ID:</label>
+      <input type="text" id="test-case-id" placeholder="TC-001">
+      <label for="test-case-name">Test Case Name:</label>
+      <input type="text" id="test-case-name" placeholder="Login Test Case">
+      <label for="test-case-description">Test Case Description:</label>
+      <textarea id="test-case-description" placeholder="A brief description of the test case"></textarea>
+      <label for="step-name">Step Name:</label>
+      <input type="text" id="step-name" placeholder="Enter step name">
+      <label for="test-data">Test Data:</label>
+      <textarea id="test-data" placeholder="Enter test data"></textarea>
+      <label for="step-description">Step Description:</label>
+      <textarea id="step-description" placeholder="Enter step description"></textarea>
+      <label for="expected-result">Expected Result:</label>
+      <textarea id="expected-result" placeholder="Enter expected result"></textarea>
+      <label for="actual-result">Actual Result:</label>
+      <textarea id="actual-result" placeholder="Enter actual result"></textarea>
+      <label for="status">Status:</label>
+      <select id="status">
+          <option value="pass">Pass</option>
+          <option value="fail">Fail</option>
+      </select>
+      <label for="remarks">Remarks:</label>
+      <textarea id="remarks" placeholder="Enter any remarks"></textarea>
+      <button onclick="addTestCase()">Add Test Case</button>
+    </div>
+    <div id="test-cases">
+      <table>
+        <thead>
+          <tr>
+            <th>Test Case ID</th>
+            <th>Test Case Name</th>
+            <th>Test Case Description</th>
+            <th>Step Name</th>
+            <th>Test Data</th>
+            <th>Step Description</th>
+            <th>Expected Result</th>
+            <th>Actual Result</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="test-cases-table-body"></tbody>
+      </table>
+    </div>
+    <script>
+      let testCases = [];
+
+      function addTestCase() {
+        // Get the input values
+        const id = document.getElementById('test-case-id').value;
+        const name = document.getElementById('test-case-name').value;
+        const description = document.getElementById
+        const description = document.getElementById('test-case-description').value;
+        const stepName = document.getElementById('step-name').value;
+        const testData = document.getElementById('test-data').value;
+        const stepDescription = document.getElementById('step-description').value;
+        const expectedResult = document.getElementById('expected-result').value;
+        const actualResult = document.getElementById('actual-result').value;
+        const status = document.getElementById('status').value;
+        const remarks = document.getElementById('remarks').value;
+
+        // Add the test case to the array
+        testCases.push({ id, name, description, stepName, testData, stepDescription, expectedResult, actualResult, status, remarks });
+
+        // Clear the input fields
+        document.getElementById('test-case-id').value = '';
+        document.getElementById('test-case-name').value = '';
+        document.getElementById('test-case-description').value = '';
+        document.getElementById('step-name').value = '';
+        document.getElementById('test-data').value = '';
+        document.getElementById('step-description').value = '';
+        document.getElementById('expected-result').value = '';
+        document.getElementById('actual-result').value = '';
+        document.getElementById('status').value = '';
+        document.getElementById('remarks').value = '';
+
+        // Update the table
+        updateTable();
+      }
+
+      function updateTable() {
+        // Get the table body element
+        const tableBody = document.getElementById('test-cases-table-body');
+
+        // Clear the table
+        tableBody.innerHTML = '';
+
+        // Add the new rows to the table
+        for (let i = 0; i < testCases.length; i++) {
+          const testCase = testCases[i];
+
+          // Create the table row
+          const row = document.createElement('tr');
+
+          // Create the table cells
+          const idCell = document.createElement('td');
+          idCell.innerHTML = testCase.id;
+          const nameCell = document.createElement('td');
+          nameCell.innerHTML = testCase.name;
+          const descriptionCell = document.createElement('td');
+          descriptionCell.innerHTML = testCase.description;
+          const stepNameCell = document.createElement('td');
+          stepNameCell.innerHTML = testCase.stepName;
+          const testDataCell = document.createElement('td');
+          testDataCell.innerHTML = testCase.testData;
+          const stepDescriptionCell = document.createElement('td');
+          stepDescriptionCell.innerHTML = testCase.stepDescription;
+          const expectedResultCell = document.createElement('td');
+          expectedResultCell.innerHTML = testCase.expectedResult;
+          const actualResultCell = document.createElement('td');
+          actualResultCell.innerHTML = testCase.actualResult;
+          const statusCell = document.createElement('td');
+          statusCell.innerHTML = testCase.status;
+          const remarksCell = document.createElement('td');
+          remarksCell.innerHTML = testCase.remarks;
+          const actionCell = document.createElement('td');
+          const deleteButton = document.createElement('button');
+          deleteButton.innerHTML = 'Delete';
+          deleteButton.onclick = function() { deleteTestCase(i); };
+          actionCell.appendChild(deleteButton);
+
+          // Add the cells to the row
+          row.appendChild(idCell);
+          row.appendChild(nameCell);
+          row.appendChild(descriptionCell);
+          row.appendChild(stepNameCell);
+          row.appendChild(testDataCell);
+          row.appendChild(stepDescriptionCell);
+          row.appendChild(expectedResultCell);
+          row.appendChild(actualResultCell);
+          row.appendChild(statusCell);
+          row.appendChild(remarksCell);
+          row.appendChild(actionCell);
+
+          // Add the row to the table
+          tableBody.appendChild(row);
+        }
+      }
+
+      function deleteTestCase(index) {
+        // Remove the test case from the array
+        testCases.splice(index, 1);
+
+        // Update the table
+        updateTable();
+      }
+    </script>
+  </body>
+</html>
